@@ -1,149 +1,54 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sample_example/sample/focusnode_sample.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  FocusNode fname;
-  FocusNode lname;
-  FocusNode age;
-  FocusNode email;
-  FocusNode submit;
-
-
-  @override
-  void initState() {
-
-    super.initState();
-    fname = FocusNode();
-    lname = FocusNode();
-    age = FocusNode();
-    email = FocusNode();
-    submit = FocusNode();
-  }
-
-  @override
-  void dispose() {
-    fname.dispose();
-    lname.dispose();
-    age.dispose();
-    email.dispose();
-    submit.dispose();
-    super.dispose();
-  }
-
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Focus Node',
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Focus Bro!'),
-            centerTitle: true,
-          ),
-          body:Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text('Personal',
-                    style: TextStyle(
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.indigoAccent,
-                    ),
-                  ),
-                  TextFormField(
-                    autofocus: true,
-                    focusNode: fname,
-                    keyboardType: TextInputType.text,
-                    enabled: true,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: 'First Name',
-                      hintText: 'Enter your first name',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color:Colors.teal),
-                      ),
-                    ),
-                    onFieldSubmitted: (term){
-                      fname.unfocus();
-                      FocusScope.of(context).requestFocus(lname);
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    focusNode: lname,
-                    enabled: true,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: 'Last Name',
-                      hintText: 'Enter your last name',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color:Colors.teal),
-                      ),
-                    ),
-                    onFieldSubmitted: (term){
-                      lname.unfocus();
-                      FocusScope.of(context).requestFocus(email);
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    focusNode: email,
-                    enabled: true,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      hintText: 'Enter your email',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color:Colors.teal),
-                      ),
-                    ),
-                    onFieldSubmitted: (term){
-                      email.unfocus();
-                      FocusScope.of(context).requestFocus(age);
-                    },
-                  ),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
 
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    focusNode: age,
-                    enabled: true,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      labelText: 'Age',
-                      hintText: 'Enter your age',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color:Colors.teal),
-                      ),
-                    ),
-                    onFieldSubmitted: (term){
-                      age.unfocus();
-                      FocusScope.of(context).requestFocus(submit);
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  FlatButton(
-                    focusNode: submit,
-                    onPressed: (){},
-                    child: Text('Submit'),
-                    color: Colors.lightBlueAccent,
-                  ),
-                ],
-              ),
-            ),
-          )
+class MyHomePage extends StatelessWidget {
+  String title;
+
+  MyHomePage({this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text('FocusNode'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FocusNodeSample(),
+                    )
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }
